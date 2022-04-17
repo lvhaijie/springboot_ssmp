@@ -1,0 +1,38 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+
+
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;登录注销&ndash;&gt;-->
+<!--<div class="right menu">-->
+
+    <!--&lt;!&ndash;如果未登录&ndash;&gt;-->
+    <!--<div sec:authorize="!isAuthenticated()">-->
+        <!--<a class="item" th:href="@{/login}">-->
+            <!--<i class="address card icon"></i> 登录-->
+        <!--</a>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;如果已登录&ndash;&gt;-->
+    <!--<div sec:authorize="isAuthenticated()">-->
+        <!--<a class="item">-->
+            <!--<i class="address card icon"></i>-->
+            <!--用户名：<span sec:authentication="principal.username"></span>-->
+            <!--角色：<span sec:authentication="principal.authorities"></span>-->
+        <!--</a>-->
+    <!--</div>-->
+
+    <!--<div sec:authorize="isAuthenticated()">-->
+        <!--<a class="item" th:href="@{/logout}">-->
+            <!--<i class="address card icon"></i> 注销-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--</body>-->
+<!--</html>-->
