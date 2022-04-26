@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * mp快速开发，继承ServiceImpl<M,T>，再实现对应的接口
  */
-//@Transactional
+@Transactional
 @Service
 public class BrandServiceImpl extends ServiceImpl<BrandDao, Brand> implements IBrandService {
     @Autowired
