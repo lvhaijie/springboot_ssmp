@@ -1,23 +1,22 @@
 package com.lhj.config;
 
 
-        import com.lhj.service.impl.LoginFormHandler;
+        import com.lhj.service.impl.LoginFailureHandler;
+        import com.lhj.service.impl.LoginSuccessHandler;
         import com.lhj.service.impl.MyUserDetailSercice;
         import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.context.annotation.Bean;
         import org.springframework.context.annotation.Lazy;
-        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
         import org.springframework.security.config.annotation.web.builders.HttpSecurity;
         import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
         import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
         import org.springframework.security.core.userdetails.UserDetailsService;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    LoginFormHandler loginFormHandler;
+    private  LoginSuccessHandler loginSuccessHandler;
+    @Autowired
+    private LoginFailureHandler loginFailureHandler;
     @Autowired
     @Lazy
     private MyUserDetailSercice userDetailSercice;
@@ -46,10 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().usernameParameter("username").passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
-//                .defaultSuccessUrl("/login")
-                .successForwardUrl("/index")
-//                .failureHandler(loginFormHandler)
-//                .successHandler(loginFormHandler)
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
+                .defaultSuccessUrl("/index")
+//                .successForwardUrl("/index")
+//                .failureUrl("/login/error")
                 .permitAll();
         http.logout().logoutSuccessUrl("/login");
         http.rememberMe().rememberMeParameter("remember")
