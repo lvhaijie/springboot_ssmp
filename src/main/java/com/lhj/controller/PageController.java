@@ -1,19 +1,17 @@
 package com.lhj.controller;
 
-import com.lhj.pojo.User;
+import com.lhj.pojo.SysUser;
 import com.lhj.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 //@Controller
@@ -39,7 +37,6 @@ import javax.validation.Valid;
 //}
 
 @Controller
-
 public class PageController implements WebMvcConfigurer {
     @RequestMapping("/brand")
     public String brand(  ) {
@@ -47,7 +44,10 @@ public class PageController implements WebMvcConfigurer {
     }
 
     @RequestMapping("/index")
-    public String index(  ) {
+    public String index(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SysUser sysUser = (SysUser) principal;
+        model.addAttribute("name", sysUser.getUsername());
         return "index";
     }
 
@@ -55,23 +55,23 @@ public class PageController implements WebMvcConfigurer {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public ModelAndView logincheck( ModelAndView modelAndView, @Valid User user, BindingResult bindingResult, String remember, HttpServletRequest request, HttpServletResponse response ) {
+    public ModelAndView logincheck( ModelAndView modelAndView, @Valid SysUser sysUser, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("error", bindingResult.getFieldError().getDefaultMessage());
             modelAndView.setViewName("login");
             return modelAndView;
         }
-        String username = user.getUsername();
-        String password = user.getPassword();
-        User name = loginService.selectByName(username);
+        String username = sysUser.getUsername();
+        String password = sysUser.getPassword();
+        SysUser name = loginService.selectByName(username);
         if(name==null){
 
             modelAndView.addObject("error","该用户名不存在!");
             modelAndView.setViewName("login");
             return modelAndView;
         }
-        User user1=loginService.login(username,password);
-        if(user1==null){
+        SysUser sysUser1 =loginService.login(username,password);
+        if(sysUser1 ==null){
             modelAndView.addObject("error","密码错误!");
             modelAndView.setViewName("login");
             return modelAndView;
@@ -95,11 +95,18 @@ public class PageController implements WebMvcConfigurer {
 //                }
 //            }
 //        }
-
         modelAndView.addObject("username",username);
-        modelAndView.setViewName("brand");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
+//@PostMapping("/login")
+//public String logincheck( Model model, @Valid SysUser user, BindingResult bindingResult, String remember, HttpServletRequest request, HttpServletResponse response ) {
+//    String username = user.getUsername();
+//    model.addAttribute("user",user);
+//    model.addAttribute("username",username);
+//
+//    return "redirect:/index";
+//}
 
     @GetMapping("/login")
     public ModelAndView login( ModelAndView modelAndView ) {

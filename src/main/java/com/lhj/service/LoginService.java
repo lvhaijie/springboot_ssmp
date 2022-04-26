@@ -1,9 +1,10 @@
 package com.lhj.service;
 
 
-import com.lhj.pojo.User;
+import com.lhj.pojo.SysUser;
 
 public interface LoginService {
-    User login( String username, String password);
-    User selectByName(String username);
+    SysUser login( String username, String password);
+    SysUser selectByName( String username);
+
 }

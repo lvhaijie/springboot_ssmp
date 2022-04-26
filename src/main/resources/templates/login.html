@@ -18,21 +18,20 @@
     <form th:action="@{/login}" id="form" method="post">
         <h1 id="loginMsg">欢迎使用</h1>
         <p id="errorMsg" th:text="${error}" aria-describedby="basic-addno0"></p>
-        <p>用户名:<input id="username" name="username" type="text" placeholder="请输入用户名" tabindex="1"
+        <p>用户名:<input id="username" name="username" type="text" placeholder="请输入用户名" tabindex="1"autocomplete="on"
                       onkeyup="this.value=this.value.replace(/[, ]/g,'')">
                       <!--th:each="cookie:${#httpServletRequest.getCookies()}"-->
                       <!--th:if="${cookie.getName().equals('cookie_username')}"-->
                         <!--th:value="${cookie.getValue()}">-->
 
         </p>
-        <p>密码: <input id="password" name="password" type="password" placeholder="请输入密码" tabindex="1"
+        <p>密码: <input id="password" name="password" type="password" placeholder="请输入密码" tabindex="1"autocomplete="on"
                       onkeyup="this.value=this.value.replace(/[, ]/g,'')">
                       <!--th:each="cookie:${#httpServletRequest.getCookies()}"-->
                       <!--th:if="${cookie.getName().equals('cookie_password')}"-->
                       <!--th:value="${cookie.getValue()}" >-->
-
         </p>
-        <p>记住密码:<input id="remember" name="remember" value="on" type="checkbox"></p>
+        <p>记住密码:<input id="remember" name="remember" type="checkbox"></p>
         <div id="subDiv">
             <input type="submit" class="button" value="登录">
             <!--<input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;-->

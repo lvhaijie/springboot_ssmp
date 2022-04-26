@@ -36,3 +36,70 @@
 
 <!--</body>-->
 <!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<a th:href="@{/brand}">管理员</a>
+<h1 align="center">欢迎光临武林秘籍管理系统</h1>
+<!-- 判断用户是否认证，如果没有认证则显示。-->
+<div sec:authorize="!isAuthenticated()">
+    <h2 align="center">游客您好，如果想查看武林秘籍 <a th:href="@{/login}">请登录</a></h2>
+</div>
+<!--判断用户是否认证，如果认证成功则显示-->
+<!--<div sec:authorize="isAuthenticated()">-->
+<div sec:authorize="isAuthenticated()">
+    <!-- 获取username -->
+    <h2>
+        <!--<th:block th:if="${user!=null}">-->
+        <p th:text="${name}"></p>
+            ，您好
+        <!--</th:block>-->
+    </h2>
+        <!-- 获取当前用户所具有的权限 -->
+        <!--<span sec:authentication="principal.authorities"></span></h2>-->
+    <!-- 向logout发送请求，因为我们配置了注销功能，所以会生效-->
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="注销"/>
+    </form>
+</div>
+
+<hr>
+ 如果拥有该权限的用户则显示此div
+<div sec:authorize="hasRole('VIP1')">
+    <h3>普通武功秘籍</h3>
+    <ul>
+        <li><a th:href="@{/level1/1}">罗汉拳</a></li>
+        <li><a th:href="@{/level1/2}">武当长拳</a></li>
+        <li><a th:href="@{/level1/3}">全真剑法</a></li>
+    </ul>
+
+</div>
+
+<div sec:authorize="hasRole('VIP2')">
+    <h3>高级武功秘籍</h3>
+    <ul>
+        <li><a th:href="@{/level2/1}">太极拳</a></li>
+        <li><a th:href="@{/level2/2}">七伤拳</a></li>
+        <li><a th:href="@{/level2/3}">梯云纵</a></li>
+    </ul>
+
+</div>
+
+<div sec:authorize="hasRole('VIP3')">
+    <h3>绝世武功秘籍</h3>
+    <ul>
+        <li><a th:href="@{/level3/1}">葵花宝典</a></li>
+        <li><a th:href="@{/level3/2}">龟派气功</a></li>
+        <li><a th:href="@{/level3/3}">独孤九剑</a></li>
+    </ul>
+</div>
+
+
+</body>
+</html>

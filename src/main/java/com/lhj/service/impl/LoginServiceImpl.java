@@ -1,7 +1,7 @@
 package com.lhj.service.impl;
 
 import com.lhj.dao.LoginDao;
-import com.lhj.pojo.User;
+import com.lhj.pojo.SysUser;
 import com.lhj.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * mp快速开发，继承ServiceImpl<M,T>，再实现对应的接口
  */
+//@Transactional
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -16,12 +17,14 @@ public class LoginServiceImpl implements LoginService {
     private LoginDao loginDao;
 
     @Override
-    public User login( String username, String password ) {
+    public SysUser login( String username, String password ) {
         return loginDao.user(username,password);
     }
 
     @Override
-    public User selectByName( String username ) {
+    public SysUser selectByName( String username ) {
         return loginDao.selectByName(username);
     }
+
+
 }

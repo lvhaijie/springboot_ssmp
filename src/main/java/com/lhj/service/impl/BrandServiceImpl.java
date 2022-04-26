@@ -10,11 +10,12 @@ import com.lhj.service.IBrandService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * mp快速开发，继承ServiceImpl<M,T>，再实现对应的接口
  */
-
+//@Transactional
 @Service
 public class BrandServiceImpl extends ServiceImpl<BrandDao, Brand> implements IBrandService {
     @Autowired
