@@ -1,7 +1,6 @@
 package com.lhj.controller;
 
 import com.lhj.pojo.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +9,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Controller
 public class PageController implements WebMvcConfigurer {
-    @RequestMapping("/brand")
+    @RequestMapping("/user")
     public String brand(  ) {
-        return "brand";
+        return "user";
     }
-
+    @RequestMapping("/pagee")
+    public String error(){
+        return "pagee";
+    }
     //用户首页
     @RequestMapping("/index")
     public String index(Model model) {
@@ -92,10 +93,12 @@ public class PageController implements WebMvcConfigurer {
 
 
     //跳转到登陆页面
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login(  ) {
         return "login";
     }
+
+
 }
 
 

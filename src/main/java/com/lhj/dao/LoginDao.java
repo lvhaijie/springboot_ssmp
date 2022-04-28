@@ -1,21 +1,24 @@
 package com.lhj.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lhj.pojo.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
-public interface LoginDao {
+public interface LoginDao extends BaseMapper<UserInfo> {
 
-    @Select("select * from tb_user where username=#{username} and password=#{password}")
+    @Select("select * from tb_user_info where username=#{username} and password=#{password}")
     UserInfo user( @Param("username")String username, @Param("password")String password);
 
-    @Select("select * from tb_user where username=#{username}" )
+    @Select("select * from tb_user_info where username=#{username}" )
     UserInfo selectByName( @Param("username")String username);
 
-//    @Update("updata user set password=#{newPwd} where username=#{username}")
-//    int updataPwd(String username,String newPwd);
+//    @Select("select *  from tb_user_info ")
+//    List<UserInfo> selectAll();
 }

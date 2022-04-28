@@ -9,6 +9,11 @@ server:
         http-only: true
     context-path: /
 spring:
+  jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      database: mysql
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver

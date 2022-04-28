@@ -38,9 +38,11 @@ public class CommonConfig {
         bean.setOrder(-1000);
         return bean;
     }
+
     //密码加密
     @Bean
     public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
         return new PasswordEncoder() {
             @Override
             public String encode( CharSequence rawPassword ) {
@@ -49,11 +51,9 @@ public class CommonConfig {
 
             @Override
             public boolean matches( CharSequence rawPassword, String encodedPassword ) {
-                if(rawPassword.toString().equals(encodedPassword)){
-                    return true;
-                }
-                return false;
+                return encodedPassword.equals(rawPassword.toString());
             }
         };
     }
 }
+
